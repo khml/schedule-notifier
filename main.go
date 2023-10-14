@@ -17,7 +17,7 @@ func main() {
 	tasks := readTasks(args[1])
 
 	duration := 5 * time.Second
-	for true {
+	for {
 		currentTime := time.Now()
 		fmt.Println("current time:", currentTime)
 
