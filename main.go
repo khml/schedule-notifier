@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
-	"schedule-notifier/schdulenotifier"
+	"schedule-notifier/schedulenotifier"
 	"time"
 )
 
@@ -14,7 +14,10 @@ func main() {
 		return
 	}
 
-	tasks := readTasks(args[1])
+	tasks, err := schedulenotifier.ReadSchedule(args[1])
+	if err != nil {
+		panic(err)
+	}
 
 	duration := 5 * time.Second
 	for {
@@ -23,18 +26,10 @@ func main() {
 
 		for _, t := range tasks {
 			if t.IsTime(currentTime, duration) {
-				_ = schdulenotifier.Notify(t.Name, "Message body", "")
+				_ = schedulenotifier.Notify(t.Name, "Message body", "")
 			}
 		}
 
 		time.Sleep(duration)
 	}
-}
-
-func readTasks(filepath string) []schdulenotifier.ScheduleTask {
-	tasks, err := schdulenotifier.ReadYaml(filepath)
-	if err != nil {
-		panic(err)
-	}
-	return tasks
 }

@@ -1,10 +1,8 @@
-package schdulenotifier
+package settings
 
 import (
-	"fmt"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
-	"time"
 )
 
 type ScheduleTaskDefine struct {
@@ -13,7 +11,7 @@ type ScheduleTaskDefine struct {
 }
 
 type ScheduleDefine struct {
-	Tasks []ScheduleTaskDefine `yaml:"tasks"`
+	Tasks []ScheduleTaskDefine `yaml:"scheduletask"`
 }
 
 func readYamlFile(filepath string) (ScheduleDefine, error) {
@@ -34,25 +32,11 @@ func readYamlFile(filepath string) (ScheduleDefine, error) {
 	return schedule, nil
 }
 
-func ReadYaml(filepath string) ([]ScheduleTask, error) {
+func ReadSettingYaml(filepath string) ([]ScheduleTaskDefine, error) {
 	scheduleDef, err := readYamlFile(filepath)
 	if err != nil {
 		return nil, err
 	}
 
-	var tasks []ScheduleTask
-	location := time.Now().Location()
-	for _, def := range scheduleDef.Tasks {
-		taskTime, err := ParseDate(def.Time, location)
-
-		if err != nil {
-			return nil, err
-		}
-
-		task := ScheduleTask{Name: def.Name, Time: taskTime}
-		fmt.Printf("%v\n", task)
-		tasks = append(tasks, task)
-	}
-
-	return tasks, nil
+	return scheduleDef.Tasks, nil
 }

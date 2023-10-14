@@ -1,4 +1,4 @@
-package schdulenotifier
+package scheduletask
 
 import (
 	"time"
