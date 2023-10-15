@@ -11,7 +11,7 @@ type ScheduleTaskDefine struct {
 }
 
 type ScheduleDefine struct {
-	Tasks []ScheduleTaskDefine `yaml:"scheduletask"`
+	Tasks []ScheduleTaskDefine `yaml:"tasks"`
 }
 
 func readYamlFile(filepath string) (ScheduleDefine, error) {
