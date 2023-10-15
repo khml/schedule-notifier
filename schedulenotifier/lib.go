@@ -4,6 +4,7 @@ import (
 	"github.com/gen2brain/beeep"
 	"schedule-notifier/schedulenotifier/schedulesettings"
 	"schedule-notifier/schedulenotifier/scheduletask"
+	"schedule-notifier/schedulenotifier/ui"
 	"time"
 )
 
@@ -46,4 +47,8 @@ func (s *Scheduler) Run() {
 			s.Exec()
 		}
 	}()
+}
+
+func BuildApp(tasks []scheduletask.ScheduleTask) {
+	ui.BuildApp(tasks)
 }

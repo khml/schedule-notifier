@@ -23,7 +23,5 @@ func main() {
 	scheduler := schedulenotifier.Scheduler{Tasks: tasks, Duration: duration}
 	scheduler.Run()
 
-	for range time.Tick(time.Second) {
-		time.Sleep(duration)
-	}
+	schedulenotifier.BuildApp(tasks)
 }
