@@ -2,7 +2,7 @@ package scheduletask
 
 import (
 	"fmt"
-	"schedule-notifier/schedulenotifier/settings"
+	"schedule-notifier/schedulenotifier/schedulesettings"
 	"time"
 )
 
@@ -21,7 +21,7 @@ func (s ScheduleTask) IsTime(current time.Time, durationRange time.Duration) boo
 	return duration <= durationRange
 }
 
-func ReadSettings(taskDefs []settings.ScheduleTaskDefine) ([]ScheduleTask, error) {
+func ReadSettings(taskDefs []schedulesettings.ScheduleTaskDefine) ([]ScheduleTask, error) {
 	var tasks []ScheduleTask
 
 	location := time.Now().Location()
