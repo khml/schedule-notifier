@@ -20,16 +20,10 @@ func main() {
 	}
 
 	duration := 5 * time.Second
-	for {
-		currentTime := time.Now()
-		fmt.Println("current time:", currentTime)
+	scheduler := schedulenotifier.Scheduler{Tasks: tasks, Duration: duration}
+	scheduler.Run()
 
-		for _, t := range tasks {
-			if t.IsTime(currentTime, duration) {
-				_ = schedulenotifier.Notify(t.Name, "Message body", "")
-			}
-		}
-
+	for range time.Tick(time.Second) {
 		time.Sleep(duration)
 	}
 }

@@ -4,6 +4,7 @@ import (
 	"github.com/gen2brain/beeep"
 	"schedule-notifier/schedulenotifier/schedulesettings"
 	"schedule-notifier/schedulenotifier/scheduletask"
+	"time"
 )
 
 func Notify(title, message, appIcon string) error {
@@ -22,4 +23,27 @@ func ReadSchedule(filepath string) ([]scheduletask.ScheduleTask, error) {
 	}
 
 	return tasks, nil
+}
+
+type Scheduler struct {
+	Tasks    []scheduletask.ScheduleTask
+	Duration time.Duration
+}
+
+func (s *Scheduler) Exec() {
+	currentTime := time.Now()
+
+	for _, t := range s.Tasks {
+		if t.IsTime(currentTime, s.Duration) {
+			_ = Notify(t.Name, "Message body", "")
+		}
+	}
+}
+
+func (s *Scheduler) Run() {
+	go func() {
+		for range time.Tick(time.Second) {
+			s.Exec()
+		}
+	}()
 }
