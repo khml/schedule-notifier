@@ -6,7 +6,7 @@ import (
 )
 
 func updateTime(clock *widget.Label) {
-	formatted := time.Now().Format("Time: 15:04:05")
+	formatted := time.Now().Format("Time: 01/02 15:04:05")
 	clock.SetText(formatted)
 }
 
