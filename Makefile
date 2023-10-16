@@ -6,7 +6,8 @@ build-release-artifacts:
 	fyne-cross windows -arch=amd64 && \
 	zip schedule-notifier.linux_amd64.zip schedule-notifier_linux_amd64 && \
 	zip schedule-notifier.darwin_arm64.zip schedule-notifier_darwin_arm64 && \
-	zip schedule-notifier.windows_amd64.zip schedule-notifier.exe
+	zip schedule-notifier.windows_amd64.zip schedule-notifier.exe && \
+	ls
 
 build-linux:
 	GOOS=linux GOARCH=amd64 go build -o ./schedule-notifier_linux_amd64 -v
