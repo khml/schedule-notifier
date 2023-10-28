@@ -8,13 +8,9 @@ import (
 )
 
 func main() {
-	args := os.Args
-	if len(args) < 2 {
-		fmt.Printf("Usage: %v path/to/schedule.yaml\n", args[0])
-		return
-	}
+	scheduleDefFile := getScheduleDefFilepathFromCliArgs()
 
-	tasks, err := schedulenotifier.ReadSchedule(args[1])
+	tasks, err := schedulenotifier.ReadSchedule(scheduleDefFile)
 	if err != nil {
 		panic(err)
 	}
@@ -23,4 +19,19 @@ func main() {
 	scheduler := schedulenotifier.Scheduler{Tasks: tasks, Duration: duration}
 	scheduler.Run()
 
+}
+
+func getScheduleDefFilepathFromCliArgs() string {
+	args := os.Args
+
+	if len(args) < 2 {
+		return "schedule.yaml"
+	}
+
+	if args[1] == "-h" {
+		fmt.Printf("Usage: %v path/to/schedule.yaml\n", args[0])
+		os.Exit(0)
+	}
+
+	return args[1]
 }

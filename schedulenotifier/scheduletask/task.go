@@ -1,7 +1,6 @@
 package scheduletask
 
 import (
-	"fmt"
 	"schedule-notifier/schedulenotifier/schedulesettings"
 	"time"
 )
@@ -33,7 +32,6 @@ func ReadSettings(taskDefs []schedulesettings.ScheduleTaskDefine) ([]ScheduleTas
 		}
 
 		task := ScheduleTask{Name: def.Name, Time: taskTime}
-		fmt.Printf("%v\n", task)
 		tasks = append(tasks, task)
 	}
 
