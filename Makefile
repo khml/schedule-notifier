@@ -1,13 +1,12 @@
 .PHONY: build-linux build-darwin build-windows build-release-artifacts
 
 build-release-artifacts:
-	fyne-cross linux -arch=amd64 && \
-	fyne-cross darwin -arch=arm64 && \
-	fyne-cross windows -arch=amd64 && \
+	make build-linux && \
+	make build-darwin && \
+	make build-windows && \
 	zip schedule-notifier.linux_amd64.zip schedule-notifier_linux_amd64 && \
 	zip schedule-notifier.darwin_arm64.zip schedule-notifier_darwin_arm64 && \
-	zip schedule-notifier.windows_amd64.zip schedule-notifier.exe && \
-	ls
+	zip schedule-notifier.windows_amd64.zip schedule-notifier.exe
 
 build-linux:
 	GOOS=linux GOARCH=amd64 go build -o ./schedule-notifier_linux_amd64 -v

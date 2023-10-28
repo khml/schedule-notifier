@@ -21,20 +21,8 @@ jobs:
       with:
         go-version: '1.20'
 
-    - name: install 'Cross compiler tool for Fyne apps'
-      run: go install github.com/fyne-io/fyne-cross@latest
-
-    - name: build for linux
-      run: fyne-cross linux -arch=amd64
-
-#    - name: build for mac
-#      run: fyne-cross darwin -arch=arm64
-
-    - name: build for windows
-      run: fyne-cross windows -arch=amd64
-
     - name: build artifacts
-      run: ls
+      run: make build-release-artifacts
 
     - name: create_release
       uses: "marvinpinto/action-automatic-releases@latest"
