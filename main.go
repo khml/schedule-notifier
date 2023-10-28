@@ -19,6 +19,7 @@ func main() {
 	scheduler := schedulenotifier.Scheduler{Tasks: tasks, Duration: duration}
 	scheduler.Run()
 
+	schedulenotifier.RunTUI(tasks)
 }
 
 func getScheduleDefFilepathFromCliArgs() string {
