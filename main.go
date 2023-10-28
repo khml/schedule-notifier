@@ -23,5 +23,4 @@ func main() {
 	scheduler := schedulenotifier.Scheduler{Tasks: tasks, Duration: duration}
 	scheduler.Run()
 
-	schedulenotifier.BuildApp(tasks)
 }
