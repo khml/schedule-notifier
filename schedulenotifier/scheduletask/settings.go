@@ -25,7 +25,7 @@ func ReadDefine(taskDefs []settings.ScheduleTaskDefine) ([]ScheduleTask, error) 
 
 		timings := notifyscedule.NewNotifyTiming(taskTime, -5*time.Minute, -10*time.Minute, -15*time.Minute)
 
-		task := ScheduleTask{Name: def.Name, Time: taskTime, timings: timings}
+		task := ScheduleTask{Name: def.Name, Time: taskTime, timings: &timings}
 		task.DoneNotify(currentTime) // Turn off notifications for past scheduled times.
 		tasks = append(tasks, task)
 	}

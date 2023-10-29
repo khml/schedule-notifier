@@ -8,7 +8,7 @@ import (
 type ScheduleTask struct {
 	Name    string
 	Time    time.Time
-	timings notifyscedule.NotifyTiming
+	timings *notifyscedule.NotifyTiming
 }
 
 func (s *ScheduleTask) NeedToNotify(current time.Time) bool {
