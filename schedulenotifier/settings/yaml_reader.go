@@ -1,4 +1,4 @@
-package schedulesettings
+package settings
 
 import (
 	"gopkg.in/yaml.v2"

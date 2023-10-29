@@ -1,8 +1,8 @@
 package scheduletask
 
 import (
-	notifyscedule "schedule-notifier/schedulenotifier/notifytiming"
-	"schedule-notifier/schedulenotifier/schedulesettings"
+	"schedule-notifier/schedulenotifier/settings"
+	notifyscedule "schedule-notifier/schedulenotifier/timing"
 	"time"
 )
 
@@ -11,7 +11,7 @@ func ParseDate(dateString string, location *time.Location) (time.Time, error) {
 	return time.ParseInLocation(layout, dateString, location)
 }
 
-func ReadDefine(taskDefs []schedulesettings.ScheduleTaskDefine) ([]ScheduleTask, error) {
+func ReadDefine(taskDefs []settings.ScheduleTaskDefine) ([]ScheduleTask, error) {
 	var tasks []ScheduleTask
 
 	currentTime := time.Now()

@@ -1,7 +1,7 @@
 package scheduletask
 
 import (
-	notifyscedule "schedule-notifier/schedulenotifier/notifytiming"
+	notifyscedule "schedule-notifier/schedulenotifier/timing"
 	"time"
 )
 
