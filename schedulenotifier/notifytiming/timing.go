@@ -37,15 +37,13 @@ func (n *NotifyTiming) NeedToNotify(current time.Time) bool {
 }
 
 func (n *NotifyTiming) Done(current time.Time) {
-	var tasks []NotifyTime
+	var notPassedTasks []NotifyTime
 
 	for _, task := range n.tasks {
-		if task.HasPassed(current) {
-			// The time has come
-			continue
+		if !task.HasPassed(current) {
+			notPassedTasks = append(notPassedTasks, task)
 		}
-		tasks = append(tasks, task)
 	}
 
-	n.tasks = tasks
+	n.tasks = notPassedTasks
 }

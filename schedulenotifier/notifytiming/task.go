@@ -8,5 +8,5 @@ type NotifyTime struct {
 
 func (n *NotifyTime) HasPassed(current time.Time) bool {
 	duration := n.Time.Sub(current)
-	return duration < 0
+	return duration <= 0
 }
