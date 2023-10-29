@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"schedule-notifier/schedulenotifier"
-	"time"
 )
 
 func main() {
@@ -15,8 +14,7 @@ func main() {
 		panic(err)
 	}
 
-	duration := 5 * time.Second
-	scheduler := schedulenotifier.Scheduler{Tasks: tasks, Duration: duration}
+	scheduler := schedulenotifier.Scheduler{Tasks: tasks}
 	scheduler.Run()
 
 	schedulenotifier.RunTUI(tasks)

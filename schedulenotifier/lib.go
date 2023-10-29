@@ -18,7 +18,7 @@ func ReadSchedule(filepath string) ([]scheduletask.ScheduleTask, error) {
 		return nil, err
 	}
 
-	tasks, err := scheduletask.ReadSettings(taskDefs)
+	tasks, err := scheduletask.ReadDefine(taskDefs)
 	if err != nil {
 		return nil, err
 	}
@@ -27,16 +27,31 @@ func ReadSchedule(filepath string) ([]scheduletask.ScheduleTask, error) {
 }
 
 type Scheduler struct {
-	Tasks    []scheduletask.ScheduleTask
-	Duration time.Duration
+	Tasks []scheduletask.ScheduleTask
 }
 
 func (s *Scheduler) Exec() {
 	currentTime := time.Now()
 
+	needToClean := false
 	for _, t := range s.Tasks {
-		if t.IsTime(currentTime, s.Duration) {
+		if t.NeedToNotify(currentTime) {
 			_ = Notify(t.Name, "Message body", "")
+			t.DoneNotify(currentTime)
+		}
+
+		if t.IsAllDone() {
+			needToClean = true
+		}
+	}
+
+	if needToClean {
+		var tasks []scheduletask.ScheduleTask
+		for _, task := range s.Tasks {
+			if task.IsAllDone() {
+				continue
+			}
+			tasks = append(tasks, task)
 		}
 	}
 }

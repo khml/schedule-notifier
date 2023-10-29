@@ -1,39 +1,24 @@
 package scheduletask
 
 import (
-	"schedule-notifier/schedulenotifier/schedulesettings"
+	notifyscedule "schedule-notifier/schedulenotifier/notifytiming"
 	"time"
 )
 
 type ScheduleTask struct {
-	Name string
-	Time time.Time
+	Name    string
+	Time    time.Time
+	timings notifyscedule.NotifyTiming
 }
 
-func (s ScheduleTask) IsTime(current time.Time, durationRange time.Duration) bool {
-	duration := s.Time.Sub(current)
-
-	if duration < 0 {
-		return false
-	}
-
-	return duration <= durationRange
+func (s *ScheduleTask) NeedToNotify(current time.Time) bool {
+	return s.timings.NeedToNotify(current)
 }
 
-func ReadSettings(taskDefs []schedulesettings.ScheduleTaskDefine) ([]ScheduleTask, error) {
-	var tasks []ScheduleTask
+func (s *ScheduleTask) DoneNotify(current time.Time) {
+	s.timings.Done(current)
+}
 
-	location := time.Now().Location()
-	for _, def := range taskDefs {
-		taskTime, err := ParseDate(def.Time, location)
-
-		if err != nil {
-			return nil, err
-		}
-
-		task := ScheduleTask{Name: def.Name, Time: taskTime}
-		tasks = append(tasks, task)
-	}
-
-	return tasks, nil
+func (s *ScheduleTask) IsAllDone() bool {
+	return s.timings.IsEmpty()
 }
