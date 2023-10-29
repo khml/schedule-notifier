@@ -53,6 +53,7 @@ func (s *Scheduler) Exec() {
 			}
 			tasks = append(tasks, task)
 		}
+		s.Tasks = tasks
 	}
 }
 
