@@ -21,12 +21,12 @@ func RunTUI(s *scheduler.Scheduler) {
 }
 
 func readSchedule(filepath string) ([]scheduletask.ScheduleTask, error) {
-	taskDefs, err := settings.ReadSettingYaml(filepath)
+	scheduleDef, err := settings.ReadSettingYaml(filepath)
 	if err != nil {
 		return nil, err
 	}
 
-	tasks, err := scheduletask.ReadDefine(taskDefs)
+	tasks, err := scheduletask.ReadDefine(scheduleDef.Tasks)
 	if err != nil {
 		return nil, err
 	}
