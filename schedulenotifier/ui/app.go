@@ -6,9 +6,9 @@ import (
 	"schedule-notifier/schedulenotifier/scheduletask"
 )
 
-func buildTaskList(tasks []scheduletask.ScheduleTask) *tview.TextView {
+func buildTaskList(title string, tasks []scheduletask.ScheduleTask) *tview.TextView {
 	list := tview.NewTextView()
-	list.SetTitle("Schedule").SetBorder(true)
+	list.SetTitle(title).SetBorder(true)
 
 	txt := ""
 	for _, task := range tasks {
@@ -23,7 +23,7 @@ func BuildApp(tasks []scheduletask.ScheduleTask) {
 	app := tview.NewApplication()
 
 	clock := buildClock(app)
-	taskList := buildTaskList(tasks)
+	taskList := buildTaskList("Schedule", tasks)
 
 	view := tview.NewFlex().
 		AddItem(clock, 0, 1, false).
