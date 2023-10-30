@@ -1,8 +1,8 @@
 package schedulenotifier
 
 import (
+	"schedule-notifier/schedulenotifier/hydrate"
 	"schedule-notifier/schedulenotifier/scheduler"
-	"schedule-notifier/schedulenotifier/scheduletask"
 	"schedule-notifier/schedulenotifier/settings"
 	"schedule-notifier/schedulenotifier/ui"
 )
@@ -20,13 +20,13 @@ func RunTUI(s *scheduler.Scheduler) {
 	ui.BuildApp(s)
 }
 
-func readSchedule(filepath string) ([]scheduletask.ScheduleTask, error) {
+func readSchedule(filepath string) ([]scheduler.ScheduleTask, error) {
 	scheduleDef, err := settings.ReadSettingYaml(filepath)
 	if err != nil {
 		return nil, err
 	}
 
-	tasks, err := scheduletask.ReadDefine(scheduleDef)
+	tasks, err := hydrate.ReadDefine(scheduleDef)
 	if err != nil {
 		return nil, err
 	}

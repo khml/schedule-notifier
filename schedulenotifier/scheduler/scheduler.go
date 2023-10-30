@@ -2,12 +2,11 @@ package scheduler
 
 import (
 	"schedule-notifier/schedulenotifier/notify"
-	"schedule-notifier/schedulenotifier/scheduletask"
 	"time"
 )
 
 type Scheduler struct {
-	Schedules []scheduletask.ScheduleTask
+	Schedules []ScheduleTask
 }
 
 func (s *Scheduler) Exec() {
@@ -38,7 +37,7 @@ func (s *Scheduler) Run() {
 	}()
 }
 
-func (s *Scheduler) TodayScheduler() (schedules []scheduletask.ScheduleTask) {
+func (s *Scheduler) TodayScheduler() (schedules []ScheduleTask) {
 	today := time.Now().YearDay()
 
 	for _, schedule := range s.Schedules {
@@ -51,7 +50,7 @@ func (s *Scheduler) TodayScheduler() (schedules []scheduletask.ScheduleTask) {
 }
 
 func (s *Scheduler) clean() {
-	var tasks []scheduletask.ScheduleTask
+	var tasks []ScheduleTask
 	for _, task := range s.Schedules {
 		if task.IsAllDone() {
 			continue

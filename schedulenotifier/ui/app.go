@@ -4,10 +4,9 @@ import (
 	"fmt"
 	"github.com/rivo/tview"
 	"schedule-notifier/schedulenotifier/scheduler"
-	"schedule-notifier/schedulenotifier/scheduletask"
 )
 
-func buildTaskList(title string, tasks []scheduletask.ScheduleTask) *tview.TextView {
+func buildTaskList(title string, tasks []scheduler.ScheduleTask) *tview.TextView {
 	list := tview.NewTextView()
 	list.SetTitle(title).SetBorder(true)
 

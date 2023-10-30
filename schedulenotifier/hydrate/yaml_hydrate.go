@@ -1,8 +1,8 @@
-package scheduletask
+package hydrate
 
 import (
+	"schedule-notifier/schedulenotifier/scheduler"
 	"schedule-notifier/schedulenotifier/settings"
-	notifyscedule "schedule-notifier/schedulenotifier/timing"
 	"time"
 )
 
@@ -11,8 +11,8 @@ func parseDate(dateString string, location *time.Location) (time.Time, error) {
 	return time.ParseInLocation(layout, dateString, location)
 }
 
-func ReadDefine(scheduleDef settings.ScheduleDefine) ([]ScheduleTask, error) {
-	var tasks []ScheduleTask
+func ReadDefine(scheduleDef settings.ScheduleDefine) ([]scheduler.ScheduleTask, error) {
+	var tasks []scheduler.ScheduleTask
 
 	currentTime := time.Now()
 	location := currentTime.Location()
@@ -23,9 +23,7 @@ func ReadDefine(scheduleDef settings.ScheduleDefine) ([]ScheduleTask, error) {
 			return nil, err
 		}
 
-		timings := notifyscedule.NewNotifyTiming(taskTime, -5*time.Minute, -10*time.Minute, -15*time.Minute)
-
-		task := ScheduleTask{Name: def.Name, Time: taskTime, timings: &timings}
+		task := scheduler.NewSchedule(def.Name, taskTime)
 		task.DoneNotify(currentTime) // Turn off notifications for past scheduled times.
 		tasks = append(tasks, task)
 	}
