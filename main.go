@@ -9,15 +9,14 @@ import (
 func main() {
 	scheduleDefFile := getScheduleDefFilepathFromCliArgs()
 
-	tasks, err := schedulenotifier.ReadSchedule(scheduleDefFile)
+	scheduler, err := schedulenotifier.NewScheduler(scheduleDefFile)
 	if err != nil {
 		panic(err)
 	}
 
-	scheduler := schedulenotifier.Scheduler{Schedules: tasks}
 	scheduler.Run()
 
-	schedulenotifier.RunTUI(tasks)
+	schedulenotifier.RunTUI(scheduler.Schedules)
 }
 
 func getScheduleDefFilepathFromCliArgs() string {

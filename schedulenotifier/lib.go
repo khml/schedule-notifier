@@ -6,11 +6,20 @@ import (
 	"schedule-notifier/schedulenotifier/ui"
 )
 
+func NewScheduler(pathToSetting string) (*Scheduler, error) {
+	tasks, err := readSchedule(pathToSetting)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Scheduler{Schedules: tasks}, nil
+}
+
 func RunTUI(tasks []scheduletask.ScheduleTask) {
 	ui.BuildApp(tasks)
 }
 
-func ReadSchedule(filepath string) ([]scheduletask.ScheduleTask, error) {
+func readSchedule(filepath string) ([]scheduletask.ScheduleTask, error) {
 	taskDefs, err := settings.ReadSettingYaml(filepath)
 	if err != nil {
 		return nil, err
