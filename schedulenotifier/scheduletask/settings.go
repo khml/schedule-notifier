@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func ParseDate(dateString string, location *time.Location) (time.Time, error) {
+func parseDate(dateString string, location *time.Location) (time.Time, error) {
 	layout := "200601021504" // "YYYYMMDDhhmm"
 	return time.ParseInLocation(layout, dateString, location)
 }
@@ -17,7 +17,7 @@ func ReadDefine(taskDefs []settings.ScheduleTaskDefine) ([]ScheduleTask, error) 
 	currentTime := time.Now()
 	location := currentTime.Location()
 	for _, def := range taskDefs {
-		taskTime, err := ParseDate(def.Time, location)
+		taskTime, err := parseDate(def.Time, location)
 
 		if err != nil {
 			return nil, err
