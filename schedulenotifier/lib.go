@@ -1,18 +1,19 @@
 package schedulenotifier
 
 import (
+	"schedule-notifier/schedulenotifier/scheduler"
 	"schedule-notifier/schedulenotifier/scheduletask"
 	"schedule-notifier/schedulenotifier/settings"
 	"schedule-notifier/schedulenotifier/ui"
 )
 
-func NewScheduler(pathToSetting string) (*Scheduler, error) {
+func NewScheduler(pathToSetting string) (*scheduler.Scheduler, error) {
 	tasks, err := readSchedule(pathToSetting)
 	if err != nil {
 		return nil, err
 	}
 
-	return &Scheduler{Schedules: tasks}, nil
+	return &scheduler.Scheduler{Schedules: tasks}, nil
 }
 
 func RunTUI(tasks []scheduletask.ScheduleTask) {

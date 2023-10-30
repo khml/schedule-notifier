@@ -1,4 +1,4 @@
-package schedulenotifier
+package scheduler
 
 import (
 	"schedule-notifier/schedulenotifier/notify"
