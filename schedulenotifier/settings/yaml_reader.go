@@ -14,7 +14,7 @@ type ScheduleDefine struct {
 	Tasks []ScheduleTaskDefine `yaml:"tasks"`
 }
 
-func readYamlFile(filepath string) (ScheduleDefine, error) {
+func ReadSettingYaml(filepath string) (ScheduleDefine, error) {
 	var schedule ScheduleDefine
 
 	data, err := ioutil.ReadFile(filepath)
@@ -30,13 +30,4 @@ func readYamlFile(filepath string) (ScheduleDefine, error) {
 	}
 
 	return schedule, nil
-}
-
-func ReadSettingYaml(filepath string) ([]ScheduleTaskDefine, error) {
-	scheduleDef, err := readYamlFile(filepath)
-	if err != nil {
-		return nil, err
-	}
-
-	return scheduleDef.Tasks, nil
 }

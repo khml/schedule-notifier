@@ -11,12 +11,12 @@ func parseDate(dateString string, location *time.Location) (time.Time, error) {
 	return time.ParseInLocation(layout, dateString, location)
 }
 
-func ReadDefine(taskDefs []settings.ScheduleTaskDefine) ([]ScheduleTask, error) {
+func ReadDefine(scheduleDef settings.ScheduleDefine) ([]ScheduleTask, error) {
 	var tasks []ScheduleTask
 
 	currentTime := time.Now()
 	location := currentTime.Location()
-	for _, def := range taskDefs {
+	for _, def := range scheduleDef.Tasks {
 		taskTime, err := parseDate(def.Time, location)
 
 		if err != nil {
