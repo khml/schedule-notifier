@@ -7,14 +7,14 @@ import (
 )
 
 type Scheduler struct {
-	Tasks []scheduletask.ScheduleTask
+	Schedules []scheduletask.ScheduleTask
 }
 
 func (s *Scheduler) Exec() {
 	currentTime := time.Now()
 
 	needToClean := false
-	for _, t := range s.Tasks {
+	for _, t := range s.Schedules {
 		if t.NeedToNotify(currentTime) {
 			_ = notify.Do(t.Name, "", "")
 			t.DoneNotify(currentTime)
@@ -40,11 +40,11 @@ func (s *Scheduler) Run() {
 
 func (s *Scheduler) clean() {
 	var tasks []scheduletask.ScheduleTask
-	for _, task := range s.Tasks {
+	for _, task := range s.Schedules {
 		if task.IsAllDone() {
 			continue
 		}
 		tasks = append(tasks, task)
 	}
-	s.Tasks = tasks
+	s.Schedules = tasks
 }

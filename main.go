@@ -14,7 +14,7 @@ func main() {
 		panic(err)
 	}
 
-	scheduler := schedulenotifier.Scheduler{Tasks: tasks}
+	scheduler := schedulenotifier.Scheduler{Schedules: tasks}
 	scheduler.Run()
 
 	schedulenotifier.RunTUI(tasks)
