@@ -38,6 +38,18 @@ func (s *Scheduler) Run() {
 	}()
 }
 
+func (s *Scheduler) TodayScheduler() (schedules []scheduletask.ScheduleTask) {
+	today := time.Now().YearDay()
+
+	for _, schedule := range s.Schedules {
+		if schedule.Time.YearDay() == today {
+			schedules = append(schedules, schedule)
+		}
+	}
+
+	return
+}
+
 func (s *Scheduler) clean() {
 	var tasks []scheduletask.ScheduleTask
 	for _, task := range s.Schedules {

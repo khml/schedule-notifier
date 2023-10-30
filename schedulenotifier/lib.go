@@ -16,8 +16,8 @@ func NewScheduler(pathToSetting string) (*scheduler.Scheduler, error) {
 	return &scheduler.Scheduler{Schedules: tasks}, nil
 }
 
-func RunTUI(tasks []scheduletask.ScheduleTask) {
-	ui.BuildApp(tasks)
+func RunTUI(s *scheduler.Scheduler) {
+	ui.BuildApp(s)
 }
 
 func readSchedule(filepath string) ([]scheduletask.ScheduleTask, error) {
